@@ -14,15 +14,21 @@ public static class BoardValidator
 
             for (int j = 0; j < board.Size; j++)
             {
-                if (!rowContent.Contains(board[i, j]))
-                    rowContent.Add(board[i, j]);
-                else
-                    return BoardStatus.Invalid;
+                if(board[i, j] != 0)
+                {
+                    if (!rowContent.Contains(board[i, j]))
+                        rowContent.Add(board[i, j]);
+                    else
+                        return BoardStatus.Invalid;
+                }
 
-                if (!columnContent.Contains(board[j, i]))
-                    columnContent.Add(board[j, i]);
-                else
-                    return BoardStatus.Invalid;
+                if (board[j, i] != 0) 
+                {
+                    if (!columnContent.Contains(board[j, i]))
+                        columnContent.Add(board[j, i]);
+                    else
+                        return BoardStatus.Invalid;
+                }
             }
         }
 

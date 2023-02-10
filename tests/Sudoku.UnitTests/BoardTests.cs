@@ -72,7 +72,8 @@ public class BoardTests
                 board[0, 0] = value;
             };
 
-            Assert.Throws<ArgumentException>(act);
+            var error = Assert.Throws<ArgumentException>(act);
+            Assert.Equal("value out of range", error.Message);
         }
 
         [Theory]
@@ -81,7 +82,7 @@ public class BoardTests
         [InlineData(0, 3, 2)]
         public void AssignValuesCorrectly(int row, int column, byte value)
         {
-            var board = new Board(2);
+            var board = new Board(4);
             board[row, column] = value;
             Assert.Equal(board[row, column], value);
         }
@@ -89,6 +90,60 @@ public class BoardTests
 
     public class Validate_Should 
     {
-        
+        [Fact]
+        public void ReturnComplete_When_BoardHasNoCollisionAndIsFilled() 
+        {
+            Board board = new byte[,]
+            {
+                { 1, 2, 3, 4 },
+                { 3, 4, 2, 1 },
+                { 4, 3, 1, 2 },
+                { 2, 1, 4, 3 },
+            };
+
+            Assert.Equal(BoardStatus.Complete, board.Validate());
+        }
+
+        [Fact]
+        public void ReturnValid_When_BoardHasNoCollisions() 
+        {
+            Board board = new byte[,]
+            {
+                { 1, 2, 0, 4 },
+                { 3, 0, 2, 0 },
+                { 0, 0, 0, 0 },
+                { 0, 0, 4, 0 },
+            };
+
+            Assert.Equal(BoardStatus.Valid, board.Validate());
+        }
+
+        [Fact]
+        public void ReturnInvalid_When_BoardHasColumnCollisions() 
+        {
+            Board board = new byte[,]
+            {
+                { 1, 2, 0, 0 },
+                { 3, 0, 4, 0 },
+                { 0, 0, 0, 0 },
+                { 0, 0, 4, 0 },
+            };
+
+            Assert.Equal(BoardStatus.Invalid, board.Validate());
+        }
+
+        [Fact]
+        public void ReturnInvalid_When_BoardHasRowCollisions()
+        {
+            Board board = new byte[,]
+            {
+                { 1, 2, 0, 0 },
+                { 3, 0, 4, 0 },
+                { 2, 0, 2, 0 },
+                { 0, 0, 4, 0 },
+            };
+
+            Assert.Equal(BoardStatus.Invalid, board.Validate());
+        }
     }
 }
