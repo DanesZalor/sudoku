@@ -6,7 +6,7 @@ public static class BoardValidator
 {
     public static BoardStatus Validate(this Board board)
     {
-
+        // check horizontal and vertical collisions
         for (int i = 0; i < board.Size; i++)
         {
             var rowContent = new List<byte>(board.Size);
@@ -31,6 +31,9 @@ public static class BoardValidator
                 }
             }
         }
+
+        // check cell collisions
+        // add here
 
         return board.IsFilled() ? BoardStatus.Complete : BoardStatus.Valid;
     }
