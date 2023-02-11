@@ -11,7 +11,7 @@ public class BoardTests
         {
             var act = () =>
             {
-                Board b = new byte[2, 3];
+                Grid b = new byte[2, 3];
             };
 
             var error = Assert.Throws<ArgumentException>(act);
@@ -27,7 +27,7 @@ public class BoardTests
         {
             var act = () =>
             {
-                Board b = new byte[matrixLength, matrixLength];
+                Grid b = new byte[matrixLength, matrixLength];
             };
 
             var error = Assert.Throws<ArgumentException>(act);
@@ -37,7 +37,7 @@ public class BoardTests
         [Fact]
         public void MapMatrix() 
         {
-            Board board = new byte[,]
+            Grid board = new byte[,]
             {
                 { 1, 2, 3, 4 },
                 { 3, 4, 2, 1 },
@@ -68,7 +68,7 @@ public class BoardTests
         {
             var act = () =>
             {
-                var board = new Board(size);
+                var board = new Grid(size);
                 board[0, 0] = value;
             };
 
@@ -82,7 +82,7 @@ public class BoardTests
         [InlineData(0, 3, 2)]
         public void AssignValuesCorrectly(int row, int column, byte value)
         {
-            var board = new Board(4);
+            var board = new Grid(4);
             board[row, column] = value;
             Assert.Equal(board[row, column], value);
         }
@@ -93,7 +93,7 @@ public class BoardTests
         [Fact]
         public void ReturnComplete_When_BoardHasNoCollisionAndIsFilled() 
         {
-            Board board = new byte[,]
+            Grid board = new byte[,]
             {
                 { 1, 2, 3, 4 },
                 { 3, 4, 2, 1 },
@@ -101,13 +101,13 @@ public class BoardTests
                 { 2, 1, 4, 3 },
             };
 
-            Assert.Equal(BoardStatus.Complete, board.Validate());
+            Assert.Equal(GridStatus.Complete, board.Validate());
         }
 
         [Fact]
         public void ReturnValid_When_BoardHasNoCollisions() 
         {
-            Board board = new byte[,]
+            Grid board = new byte[,]
             {
                 { 1, 2, 0, 4 },
                 { 3, 0, 2, 0 },
@@ -115,13 +115,13 @@ public class BoardTests
                 { 0, 0, 4, 0 },
             };
 
-            Assert.Equal(BoardStatus.Valid, board.Validate());
+            Assert.Equal(GridStatus.Valid, board.Validate());
         }
 
         [Fact]
         public void ReturnInvalid_When_BoardHasColumnCollisions() 
         {
-            Board board = new byte[,]
+            Grid board = new byte[,]
             {
                 { 1, 2, 0, 0 },
                 { 3, 0, 4, 0 },
@@ -129,13 +129,13 @@ public class BoardTests
                 { 0, 0, 4, 0 },
             };
 
-            Assert.Equal(BoardStatus.Invalid, board.Validate());
+            Assert.Equal(GridStatus.Invalid, board.Validate());
         }
 
         [Fact]
         public void ReturnInvalid_When_BoardHasRowCollisions()
         {
-            Board board = new byte[,]
+            Grid board = new byte[,]
             {
                 { 1, 2, 0, 0 },
                 { 3, 0, 4, 0 },
@@ -143,13 +143,13 @@ public class BoardTests
                 { 0, 0, 4, 0 },
             };
 
-            Assert.Equal(BoardStatus.Invalid, board.Validate());
+            Assert.Equal(GridStatus.Invalid, board.Validate());
         }
 
         [Fact]
         public void ReturnInvalid_When_BoardHasCellCollisions()
         {
-            Board board = new byte[,]
+            Grid board = new byte[,]
             {
                 { 1, 2, 0, 4 },
                 { 3, 1, 2, 0 },
@@ -157,12 +157,12 @@ public class BoardTests
                 { 0, 0, 4, 0 },
             };
 
-            Assert.Equal(BoardStatus.Invalid, board.Validate());
+            Assert.Equal(GridStatus.Invalid, board.Validate());
         }
         [Fact]
         public void ReturnInvalid_When_BoardHasCellCollisions2()
         {
-            Board board = new byte[,]
+            Grid board = new byte[,]
             {
                 { 1, 2, 0,  4, 0, 0,  0, 9, 0 },
                 { 0, 0, 0,  0, 0, 0,  0, 0, 0 },
@@ -177,7 +177,7 @@ public class BoardTests
                 { 0, 0, 0,  0, 0, 0,  0, 0, 0 },
             };
 
-            Assert.Equal(BoardStatus.Invalid, board.Validate());
+            Assert.Equal(GridStatus.Invalid, board.Validate());
         }
     }
 }

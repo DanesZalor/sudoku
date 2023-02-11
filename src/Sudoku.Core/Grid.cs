@@ -1,9 +1,9 @@
 ﻿namespace Sudoku.Core;
 
-public class Board
+public class Grid
 {
     private byte[,] _matrix;
-    public int GridSize => (BlockSize * BlockSize);
+    public byte GridSize => (byte)(BlockSize * BlockSize);
     public byte BlockSize { get; private init; }
 
     public byte this[int vertical, int horizontal]
@@ -11,7 +11,7 @@ public class Board
         get => _matrix[vertical, horizontal];
         set 
         {
-            if(value < 1 || value > GridSize)
+            if(value < 0 || value > GridSize)
             {
                 throw new ArgumentException("value out of range");
             }
@@ -20,14 +20,14 @@ public class Board
         }
     }
 
-    public Board(int difficulty)
+    public Grid(int difficulty)
     {
         BlockSize = (byte)difficulty;
 
         _matrix = new byte[GridSize, GridSize];
     }
 
-    public Board(byte[,] matrix)
+    public Grid(byte[,] matrix)
     {
         if (matrix.GetLength(0) != matrix.GetLength(1))
             throw new ArgumentException("matrix must be square length");
@@ -41,20 +41,8 @@ public class Board
         _matrix = matrix;
     }
 
-    public static implicit operator Board(byte[,] matrix) 
+    public static implicit operator Grid(byte[,] matrix) 
     {
-        return new Board(matrix);
-    }
-    
-    public void printBoard()
-    {
-        for(int i = 0; i < _matrix.GetLength(0); i++)
-        {
-            for(int j = 0; j < _matrix.GetLength(1); j++)
-            {
-                Console.Write($" {_matrix[i,j]}");
-            }
-            Console.WriteLine();
-        }
+        return new Grid(matrix);
     }
 }

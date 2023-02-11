@@ -1,6 +1,6 @@
 ﻿namespace Sudoku.Core;
 
-public enum BoardStatus
+public enum GridStatus
 {
     Invalid,
     Valid,

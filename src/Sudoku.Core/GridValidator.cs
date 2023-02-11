@@ -2,9 +2,9 @@
 
 namespace Sudoku.Core;
 
-public static class BoardValidator
+public static class GridValidator
 {
-    public static BoardStatus Validate(this Board board)
+    public static GridStatus Validate(this Grid board)
     {
         // check horizontal and vertical collisions
         // O(nSize^2)
@@ -20,7 +20,7 @@ public static class BoardValidator
                     if (!rowContent.Contains(board[i, j]))
                         rowContent.Add(board[i, j]);
                     else
-                        return BoardStatus.Invalid;
+                        return GridStatus.Invalid;
                 }
 
                 if (board[j, i] != 0) 
@@ -28,7 +28,7 @@ public static class BoardValidator
                     if (!columnContent.Contains(board[j, i]))
                         columnContent.Add(board[j, i]);
                     else
-                        return BoardStatus.Invalid;
+                        return GridStatus.Invalid;
                 }
             }
         }
@@ -51,16 +51,16 @@ public static class BoardValidator
                         if(!blockContent.Contains(current))
                             blockContent.Add(current);
                         else
-                            return BoardStatus.Invalid;
+                            return GridStatus.Invalid;
                     }
                 }
             }
         }
 
-        return board.IsFilled() ? BoardStatus.Complete : BoardStatus.Valid;
+        return board.IsFilled() ? GridStatus.Complete : GridStatus.Valid;
     }
 
-    private static bool IsFilled(this Board board) 
+    private static bool IsFilled(this Grid board) 
     {
         for (int i = 0; i < board.GridSize; i++) 
         {
