@@ -2,6 +2,9 @@
 
 namespace Sudoku.CLI;
 
+/// <summary>
+///  only works on 2x2 and 3x3
+/// </summary>
 internal class GameController
 {
 	private Sudoku.Core.Game _game;

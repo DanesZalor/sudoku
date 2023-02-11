@@ -20,6 +20,6 @@ internal class GridPointer
 
     public GridPointer(int bound)
     {
-        _bound = bound*bound;
+        _bound = bound*bound - 1;
     }
 }

@@ -19,10 +19,8 @@ public class Game
         return val != 0 ? val : null;
     }
 
-    public GridStatus Set(int vertical, int horizontal, byte? value) 
+    public void Set(int vertical, int horizontal, byte? value) 
     {
         _grid[vertical, horizontal] = value ?? 0;
-
-        return _grid.Validate();
     }
 }
