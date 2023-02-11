@@ -3,15 +3,15 @@
 public class Board
 {
     private byte[,] _matrix;
-    public int Size => (Difficulty * Difficulty);
-    public byte Difficulty { get; private init; }
+    public int GridSize => (BlockSize * BlockSize);
+    public byte BlockSize { get; private init; }
 
     public byte this[int vertical, int horizontal]
     {
         get => _matrix[vertical, horizontal];
         set 
         {
-            if(value < 1 || value > Size)
+            if(value < 1 || value > GridSize)
             {
                 throw new ArgumentException("value out of range");
             }
@@ -22,9 +22,9 @@ public class Board
 
     public Board(int difficulty)
     {
-        Difficulty = (byte)difficulty;
+        BlockSize = (byte)difficulty;
 
-        _matrix = new byte[Size, Size];
+        _matrix = new byte[GridSize, GridSize];
     }
 
     public Board(byte[,] matrix)
@@ -36,7 +36,7 @@ public class Board
         if (matrixLengthSqrt % 1 != 0)
             throw new ArgumentException("matrix Length must be a perfect square");
 
-        Difficulty = (byte)matrixLengthSqrt;
+        BlockSize = (byte)matrixLengthSqrt;
 
         _matrix = matrix;
     }

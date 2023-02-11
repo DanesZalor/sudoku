@@ -147,7 +147,7 @@ public class BoardTests
         }
 
         [Fact]
-        public void ReturnValid_When_BoardHasCellCollisions()
+        public void ReturnInvalid_When_BoardHasCellCollisions()
         {
             Board board = new byte[,]
             {
@@ -155,6 +155,26 @@ public class BoardTests
                 { 3, 1, 2, 0 },
                 { 0, 0, 0, 0 },
                 { 0, 0, 4, 0 },
+            };
+
+            Assert.Equal(BoardStatus.Invalid, board.Validate());
+        }
+        [Fact]
+        public void ReturnInvalid_When_BoardHasCellCollisions2()
+        {
+            Board board = new byte[,]
+            {
+                { 1, 2, 0,  4, 0, 0,  0, 9, 0 },
+                { 0, 0, 0,  0, 0, 0,  0, 0, 0 },
+                { 0, 0, 2,  0, 0, 0,  0, 0, 0 },
+
+                { 0, 0, 0,  0, 0, 0,  0, 0, 0 },
+                { 0, 0, 0,  0, 0, 0,  0, 0, 0 },
+                { 0, 0, 0,  0, 0, 0,  0, 0, 0 },
+                
+                { 0, 0, 0,  0, 0, 0,  0, 0, 0 },
+                { 0, 0, 0,  0, 0, 0,  0, 0, 0 },
+                { 0, 0, 0,  0, 0, 0,  0, 0, 0 },
             };
 
             Assert.Equal(BoardStatus.Invalid, board.Validate());
